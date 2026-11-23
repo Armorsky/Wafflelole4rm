@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wafelo – Waffle Fresh Setiap Hari</title>
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+
+  <!-- Bootstrap 5 (CDN) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- CSS tambahan (tema warna, bayangan kotak, tanda siku navbar) yang tidak ada di Bootstrap -->
+  <style>
+    /* ===== TEMA: retro-terminal / neo-brutalist ===== */
+    :root{
+      --bg:#F4EFE6; --surface:#FFFDF8; --ink:#111; --line:#111; --shadow:#111;
+      --orange:#F28C1B; --yellow:#FFC53D; --red:#D62828; --peach:#EDE5D6; --text:#2b2b2b;
+      --mono:'Space Mono','Courier New',ui-monospace,monospace;
+      --sans:'Space Grotesk','Segoe UI',Roboto,Arial,sans-serif;
+      --bs-body-font-family:var(--sans);
+    }
+    html{scroll-behavior:smooth}
+    body{color:var(--text);background:var(--bg);line-height:1.6;transition:background .3s,color .3s}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:1100px}
+    section[id],footer[id]{scroll-margin-top:52px}
+    h1,h2,h3,h4{font-family:var(--mono)}
+
+
+    /* ===== TOPBAR ===== */
+    .topbar{background:var(--ink);color:var(--bg);font-family:var(--mono);font-size:.78rem}
+    .topbar a{color:var(--yellow);text-decoration:underline}
+
+    /* ===== NAVBAR (Bootstrap navbar + tampilan gelap) ===== */
+    .site-nav{background:#0b0c10;border-bottom:1px solid #26272d;padding:0;
+      --bs-navbar-toggler-focus-width:0}
+    .site-nav .container{min-height:52px}
+    .nav-brand{display:flex;align-items:center;gap:8px;font-family:var(--mono);font-weight:700;font-size:.72rem;letter-spacing:.06em;color:#f2f2f2;padding:0;margin:0}
+    .nav-brand:hover{color:#f2f2f2}
+    .nav-brand img{width:20px;height:20px}
+    .nav-brand sup{font-size:.5rem;color:#9a9ba3;vertical-align:baseline;position:relative;top:-.35em}
+    .menu{--bs-nav-link-color:#9a9ba3;--bs-nav-link-hover-color:#fff;--bs-navbar-active-color:#fff;--bs-nav-link-padding-x:14px;--bs-nav-link-padding-y:9px;
+      font-family:var(--mono);font-size:.68rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;gap:6px}
+    .menu .nav-link{position:relative;display:flex;align-items:center;gap:7px;transition:color .15s}
+    .menu .nav-link:hover,.menu .nav-link.active{color:#fff}
+    .menu .nav-link::before,.menu .nav-link::after{content:"";position:absolute;width:8px;height:8px;opacity:0;transition:opacity .15s}
+    .menu .nav-link::before{top:0;left:0;border-top:2px solid #fff;border-left:2px solid #fff}
+    .menu .nav-link::after{bottom:0;right:0;border-bottom:2px solid #fff;border-right:2px solid #fff}
+    .menu .nav-link:hover::before,.menu .nav-link:hover::after,.menu .nav-link.active::before,.menu .nav-link.active::after{opacity:1}
+    .theme-switch{position:relative;width:34px;height:18px;border-radius:999px;background:#000;border:1px solid #3a3b42;cursor:pointer;margin:0}
+    .theme-switch i{position:absolute;top:3px;left:3px;width:10px;height:10px;border-radius:50%;background:var(--yellow);transition:transform .2s,background .2s}
+    body:has(.theme-toggle:checked) .theme-switch i{transform:translateX(16px);background:#cfd2ff}
+    @media(max-width:767.98px){.menu{padding:8px 0 14px;gap:0}.menu .nav-link{padding:12px 14px}}
+
+    /* ===== TOMBOL (variabel bawaan Bootstrap .btn) ===== */
+    .btn{--bs-btn-padding-x:22px;--bs-btn-padding-y:10px;--bs-btn-font-family:var(--mono);--bs-btn-font-size:.85rem;--bs-btn-font-weight:700;
+      --bs-btn-border-width:2px;--bs-btn-border-radius:0;--bs-btn-border-color:#111;--bs-btn-hover-border-color:#111;--bs-btn-active-border-color:#111;
+      box-shadow:4px 4px 0 #111;transition:.15s}
+    .btn:hover{transform:translate(3px,3px);box-shadow:1px 1px 0 #111}
+    .btn-red{--bs-btn-bg:var(--red);--bs-btn-hover-bg:var(--red);--bs-btn-active-bg:var(--red);--bs-btn-color:#fff;--bs-btn-hover-color:#fff;--bs-btn-active-color:#fff}
+    .btn-yellow{--bs-btn-bg:var(--yellow);--bs-btn-hover-bg:var(--yellow);--bs-btn-active-bg:var(--yellow);--bs-btn-color:#111;--bs-btn-hover-color:#111;--bs-btn-active-color:#111}
+    .btn-white{--bs-btn-bg:#fff;--bs-btn-hover-bg:#fff;--bs-btn-active-bg:#fff;--bs-btn-color:#111;--bs-btn-hover-color:#111;--bs-btn-active-color:#111}
+
+    /* ===== HERO ===== */
+    .hero{background:#111 radial-gradient(#3a3a3a 1px,transparent 1px) 0 0/22px 22px;color:#f4efe9;padding:80px 0;border-bottom:2px solid var(--line)}
+    .kicker{color:var(--yellow);font-family:var(--mono);font-weight:700;font-size:.85rem}
+    .hero h1{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.12}
+    .hero h1 span{color:var(--orange)}
+    .hero-lead{color:#ccc;max-width:470px}
+    .hero-note{font-family:var(--mono);font-size:.78rem;color:#aaa}
+    .hero-note strong{color:var(--yellow)}
+    .hero-img{filter:drop-shadow(0 18px 24px rgba(0,0,0,.55))}
+
+    /* ===== SECTION UMUM ===== */
+    .section{padding:80px 0}
+    .section-light{background:var(--bg)}
+    .section-peach{background:var(--peach);border-block:2px solid var(--line)}
+    .label{background:var(--yellow);color:#111;border:2px solid #111;border-radius:0;font-family:var(--mono);font-size:.75rem;font-weight:700;padding:2px 10px}
+    .section h2{font-size:clamp(1.6rem,3.2vw,2.3rem);margin-bottom:34px;color:var(--ink);line-height:1.2}
+    .sub{max-width:620px;margin:-16px 0 34px}
+
+    /* ===== KARTU (Bootstrap .card) ===== */
+    .card{--bs-card-bg:var(--surface);--bs-card-border-color:var(--line);--bs-card-border-width:2px;--bs-card-border-radius:0;--bs-card-inner-border-radius:0;
+      --bs-card-color:var(--text);box-shadow:5px 5px 0 var(--shadow)}
+    .feature h3{font-size:1rem;color:var(--ink)}
+    .product{transition:.15s}
+    .product:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--shadow)}
+    .product-img{background:#FFF1DC;padding:18px;border-bottom:2px solid var(--line);aspect-ratio:1/1;object-fit:contain;width:100%}
+    .product h3{font-size:1.05rem;color:var(--ink)}
+    .price{background:var(--yellow);color:#111;border:2px solid #111;border-radius:0;font-family:var(--mono);font-weight:700;font-size:.95rem;padding:1px 10px}
+
+    /* ===== STATISTIK ===== */
+    .stats{background:var(--orange);padding:30px 0;border-block:2px solid var(--line);color:#111}
+    .stats strong{display:block;font-family:var(--mono);font-size:2.1rem}
+    .stats span{font-family:var(--mono);font-size:.8rem;font-weight:700}
+
+    
+
+    /* ===== PAKET ===== */
+    .plan{padding:34px;border:2px solid var(--line);box-shadow:6px 6px 0 var(--shadow);position:relative;height:100%}
+    .plan-orange{background:var(--orange);color:#111}
+    .plan-white{background:var(--surface)}
+    .plan h3{font-size:1.3rem;color:inherit}
+    .plan .big{font-family:var(--mono);font-size:2.2rem;font-weight:700}
+    .plan-badge{position:absolute;top:-14px;left:24px;background:#111;color:var(--yellow);border-radius:0;font-family:var(--mono);font-size:.72rem}
+
+    /* ===== TESTIMONI ===== */
+    .stars{color:var(--orange)}
+    .quote cite{font-family:var(--mono);font-weight:700;font-size:.8rem;font-style:normal;color:var(--ink)}
+
+    /* ===== FAQ (Bootstrap accordion) ===== */
+    .accordion{--bs-accordion-bg:var(--surface);--bs-accordion-color:var(--text);--bs-accordion-border-color:var(--line);--bs-accordion-border-width:2px;
+      --bs-accordion-border-radius:0;--bs-accordion-inner-border-radius:0;--bs-accordion-btn-color:var(--ink);--bs-accordion-active-color:var(--ink);
+      --bs-accordion-active-bg:var(--surface);--bs-accordion-btn-focus-box-shadow:none}
+    .accordion-item{margin-bottom:12px;box-shadow:4px 4px 0 var(--shadow)}
+    .accordion-button{font-family:var(--mono);font-weight:700;background:var(--surface)}
+    .accordion-button:not(.collapsed){box-shadow:none}
+
+    /* ===== FOOTER ===== */
+    .footer{background:#111;color:#bbb;padding:56px 0 0;border-top:2px solid var(--line)}
+    .footer .brand-text{display:flex;flex-direction:column;line-height:1.05;font-family:var(--mono);color:#fff}
+    .footer .brand-text small{font-size:.62rem;color:var(--orange);font-weight:700}
+    .footer h3{font-family:var(--mono);color:var(--yellow);font-size:.9rem}
+    .footer p{font-size:.9rem}
+    .footer a:hover{color:var(--yellow)}
+    .copy{font-family:var(--mono);border-top:1px solid #333;font-size:.75rem}
+
+    @media(max-width:575.98px){.section{padding:56px 0}}
+  </style>
+</head>
+<body>
+ 
+
+  <!-- TOP BAR -->
+  <div class="topbar text-center py-2 px-2">Waffle hangat untuk pelajar, guru &amp; keluarga di Karanganyar. <a href="https://wa.me/085723057625">Pesan sekarang</a></div>
+
+  <!-- 1. NAVBAR -->
+  <nav class="navbar navbar-expand-md sticky-top site-nav" data-bs-theme="dark">
+    <div class="container">
+      <a href="#beranda" class="navbar-brand nav-brand"><img src="images/logo.svg" alt="Logo Wafelo"><span>WAFELO <sup>HOUSE</sup></span></a>
+      <div class="collapse navbar-collapse justify-content-md-center" id="mainMenu">
+        <ul class="navbar-nav menu">
+          <li class="nav-item"><a class="nav-link" href="#beranda"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg><span>Beranda</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="#tentang"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span>Tentang</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="#menu"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg><span>Menu</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimoni"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 01-11.5 7.2L3 21l1.8-6.5A8 8 0 1121 12z"/></svg><span>Testimoni</span></a></li>
+          <li class="nav-item"><a class="nav-link" href="#kontak"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg><span>Kontak</span></a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 2. HERO SECTION -->
+  <section class="hero" id="beranda">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <p class="kicker mb-2">// WAFFLE BUATAN RUMAH</p>
+          <h1 class="fw-bold mb-3">Waffle Fresh, Renyah &amp; <span>Harga Pelajar</span></h1>
+          <p class="hero-lead">Dipanggang saat dipesan dengan bahan pilihan. Cocok untuk sarapan, camilan sekolah, dan acara keluarga.</p>
+          <div class="d-flex flex-wrap gap-3 my-4">
+            <a href="https://wa.me/6281234567890" class="btn btn-yellow">Pesan Hari Ini</a>
+            <a href="#menu" class="btn btn-red">Lihat Menu</a>
+          </div>
+          <p class="hero-note mb-0"><strong>30+ pelanggan</strong> puas &nbsp;|&nbsp; Rating 4,9 dari pecinta waffle</p>
+        </div>
+        <div class="col-lg-5">
+          <img src="images/hero-waffle.png" alt="Tumpukan tiga waffle keemasan" class="hero-img img-fluid w-100">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. TENTANG KAMI -->
+  <section class="section section-light" id="tentang">
+    <div class="container">
+      <span class="badge label mb-3">ABOUT_WAFELO.EXE</span>
+      <h2>Kenapa Pilih Wafelo?</h2>
+      <p class="sub">Wafelo adalah usaha waffle rumahan di Karanganyar yang dimulai dari dapur kecil dengan satu tujuan: waffle enak yang terjangkau.</p>
+      <div class="row row-cols-2 row-cols-lg-4 g-4">
+        <div class="col"><article class="card feature h-100 p-3 p-md-4"><div class="fs-2">🗿</div><h3 class="mt-2 mb-2">Selalu Fresh</h3><p class="small mb-0">Adonan dibuat harian dan waffle dipanggang setelah pesanan masuk.</p></article></div>
+        <div class="col"><article class="card feature h-100 p-3 p-md-4"><div class="fs-2">🗿</div><h3 class="mt-2 mb-2">Bersih &amp; Higienis</h3><p class="small mb-0">Alat dan tempat memasak dibersihkan rutin demi kesehatan pelanggan.</p></article></div>
+        <div class="col"><article class="card feature h-100 p-3 p-md-4"><div class="fs-2">🗿</div><h3 class="mt-2 mb-2">Ramah Kantong</h3><p class="small mb-0">Harga mulai Rp10.000, pas untuk uang saku pelajar.</p></article></div>
+        <div class="col"><article class="card feature h-100 p-3 p-md-4"><div class="fs-2">🗿</div><h3 class="mt-2 mb-2">Bisa Diantar</h3><p class="small mb-0">Pesan lewat WhatsApp, kami antar ke sekolah atau rumah.</p></article></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. PRODUK -->
+  <section class="section section-peach" id="menu">
+    <div class="container">
+      <span class="badge label mb-3">MENU_WAFFLE.EXE</span>
+      <h2>Pilihan Waffle Favorit</h2>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col"><article class="card product h-100"><img src="images/waffle-original.png" class="product-img" alt="Waffle Golden Original"><div class="card-body"><h3 class="h5">Golden Original</h3><p class="small mb-2">Waffle emas renyah di luar dan empuk di dalam, nikmat dimakan polos atau dengan sirup.</p><span class="badge price">Rp3.000</span></div></article></div>
+        <div class="col"><article class="card product h-100"><img src="images/waffle-chocolate.png" class="product-img" alt="Waffle Choco Drip"><div class="card-body"><h3 class="h5">Choco Drip</h3><p class="small mb-2">Tiga susun waffle hangat dengan siraman cokelat lumer yang mengkilap.</p><span class="badge price">Rp6.000</span></div></article></div>
+        <div class="col"><article class="card product h-100"><img src="images/waffle-cheese.png" class="product-img" alt="Waffle Cheese Melt"><div class="card-body"><h3 class="h5">Cheese Melt</h3><p class="small mb-2">Taburan keju parut gurih yang meleleh di atas waffle panggang.</p><span class="badge price">Rp6.000</span></div></article></div>
+      </div>
+      <div class="text-center mt-5"><a href="https://wa.me/6281234567890?text=Halo%20Wafelo,%20saya%20mau%20pesan" class="btn btn-red">[ Pesan via WhatsApp ]</a></div>
+    </div>
+  </section>
+
+  <!-- STATISTIK -->
+  <section class="stats text-center">
+    <div class="container">
+      <div class="row row-cols-2 row-cols-md-4 g-4">
+        <div class="col"><strong>20+</strong><span>Pelanggan Puas,"Pemula Cik</span></div>
+        <div class="col"><strong>3</strong><span>Varian Rasa,Dikit Saja</span></div>
+        <div class="col"><strong>30+</strong><span>Waffle Terjual,Modal Kecil</span></div>
+        <div class="col"><strong>4,9</strong><span>Rating Pelanggan</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAKET -->
+  <section class="section section-peach">
+    <div class="container">
+      <span class="badge label mb-3">PAKET_HEMAT.EXE</span>
+      <h2>Waffle untuk Setiap Suasana</h2>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="plan plan-orange">
+            <span class="badge plan-badge px-3 py-1"> Paling Laris <span>Semoga hehe</span></span>
+            <h3>Paket Sekolah</h3>
+            <p class="big my-2">Rp 25.000</p>
+            <p class="mb-4">5 waffle mix rasa, cocok dibagi dengan teman sekelas.</p>
+            <a href="https://wa.me/6285723057625" class="btn btn-white">Ambil Paket</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="plan plan-white">
+            <span  class="badge plan-badge px-3 py-1">When Ya</span>
+            <h3>Paket Pesta</h3>
+            <p class="big my-2">Rp 110.000</p>
+            <p class="mb-4">20 waffle mini plus topping bebas untuk acara dan arisan.</p>
+            <a href="https://wa.me/6285723057625" class="btn btn-yellow">Ambil Paket</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONI -->
+  <section class="section section-light" id="testimoni">
+    <div class="container">
+      <span class="badge label mb-3">TESTIMONI.EXE</span>
+      <h2>Dicintai Pecinta Waffle</h2>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        <div class="col"><blockquote class="card quote h-100 p-4 mb-0"><div class="stars mb-2">★★★★★</div><p>Wafflenya renyah di luar, empuk di dalam. Tiap istirahat pasti beli!</p><cite class="mt-auto pt-2">Pemilik,Hehe</cite></blockquote></div>
+        <div class="col"><blockquote class="card quote h-100 p-4 mb-0"><div class="stars mb-2">★★★★★</div><p>enakkkkkkkkkk kokkkkkkkk</p><cite class="mt-auto pt-2">Ibuk</cite></blockquote></div>
+        <div class="col"><blockquote class="card quote h-100 p-4 mb-0"><div class="stars mb-2">★★★★★</div><p>Harganya murah, topping banyak. Favorit saya Choco Drip.</p><cite class="mt-auto pt-2">Tema, mahasiswa</cite></blockquote></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-peach">
+    <div class="container" style="max-width:760px">
+      <span class="badge label mb-3">FAQ.MD</span>
+      <h2>Ada Pertanyaan tentang Wafelo?</h2>
+      <div class="accordion" id="faq">
+        <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">Apakah waffle dibuat fresh?</button></h3><div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Ya,Dong</div></div></div>
+        <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">Bagaimana cara memesan?</button></h3><div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Hubungi WhatsApp kami, sebutkan menu dan alamat pengantaran.</div></div></div>
+        <div class="accordion-item"><h3 class="accordion-header"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">Bisa pesan dalam jumlah banyak?</button></h3><div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Bisa. Pesan satu hari sebelumnya untuk jumlah di atas 20 waffle.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. KONTAK / FOOTER -->
+  <footer class="footer" id="kontak">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-12 col-sm-6 col-lg-4">
+          <a href="#beranda" class="d-flex align-items-center gap-2 mb-2"><img src="images/logo.svg" alt="Logo Wafelo" width="34" height="34"><span class="brand-text"><b>WAFELO</b><small>Waffle House</small></span></a>
+          <p>Waffle fresh buatan rumah di Karanganyar.</p>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <h3>Kontak</h3>
+          <p class="mb-1">Alamat: Jl. Lawu No. 10, Karanganyar</p>
+          <p class="mb-1">Telepon: 0857-2305-7625</p>
+          <p class="mb-1">Email: afrizalsukakopi@gmail.com</p>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <h3>Media Sosial</h3>
+          <p class="mb-1"><a href="https://instagram.com">Instagram @wafelo.id</a></p>
+          <p class="mb-1"><a href="https://tiktok.com">TikTok @wafelo.id</a></p>
+          <p class="mb-1">Buka: setiap hari, 08.00 – 20.00</p>
+        </div>
+      </div>
+    </div>
+    <p class="copy text-center mt-5 mb-0 p-3">&copy; 2026 Wafelo. Proyek Homepage SMK Negeri 2 Karanganyar.</p>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+</body>
+</html>
